@@ -1,17 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
+import 'isomorphic-fetch';
+import 'es6-promise';
 
-class App extends Component {
+
+class App extends React.Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      ghibliFilms: []
+    }
+
+  }
+  
+  componentDidMount() {
+    fetch("https://ghibliapi.herokuapp.com/films")
+    .then(res => res.json())
+    .then(studioGhibli => this.setState({ ghibliFilms: studioGhibli }))
+  }
+  
   render() {
+    console.log(this.state.ghibliFilms)
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <div className="container">
+            
+        </div>
       </div>
     );
   }
