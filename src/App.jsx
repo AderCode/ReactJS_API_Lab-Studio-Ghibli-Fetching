@@ -19,7 +19,13 @@ class App extends React.Component {
   componentDidMount() {
     fetch("https://ghibliapi.herokuapp.com/films")
       .then(res => res.json())
-      .then(studioGhibli => this.setState({ ghibliFilms: studioGhibli, filmsLoaded: false, peopleLoaded:false }));
+      .then(studioGhibli =>
+        this.setState({
+          ghibliFilms: studioGhibli,
+          filmsLoaded: false,
+          peopleLoaded: false
+        })
+      );
   }
 
   handleClick() {
@@ -27,12 +33,12 @@ class App extends React.Component {
       this.setState(prevState => ({
         filmsLoaded: !prevState.filmsLoaded
       }));
-      this.setState({ peopleLoaded : false });
+      this.setState({ peopleLoaded: false });
     } else {
       this.setState(prevState => ({
         peopleLoaded: !prevState.peopleLoaded
       }));
-      this.setState({ filmsLoaded : false });
+      this.setState({ filmsLoaded: false });
     }
   }
 
@@ -40,11 +46,10 @@ class App extends React.Component {
     console.log(this.state.ghibliFilms);
     return (
       <div>
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-12 mx-auto text-center">
-              <img src={require(`./srcImages/logo.png`)} alt="Studio Ghibli" />
-            </div>
+        <div className="jumbotron jumbotron-fluid">
+          <div className="container mx-auto text-center">
+          <img className="w-75" src={require(`./srcImages/logo.png`)} alt="Studio Ghibli" />
+
           </div>
         </div>
         <div className="row">
@@ -57,8 +62,16 @@ class App extends React.Component {
           </div>
         </div>
         <div className="row">
-          {this.state.filmsLoaded ? (<FilmStyle data={this.state.ghibliFilms} />) : ""}
-          {this.state.peopleLoaded ? (<PeopleStyle data={this.state.ghibliFilms} />) : ""}
+          {this.state.filmsLoaded ? (
+            <FilmStyle data={this.state.ghibliFilms} />
+          ) : (
+            ""
+          )}
+          {this.state.peopleLoaded ? (
+            <PeopleStyle data={this.state.ghibliFilms} />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );
@@ -66,3 +79,4 @@ class App extends React.Component {
 }
 
 export default App;
+
